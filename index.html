@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The DVD Archive</title>
+  <style>
+    /* Base styles for body and fonts */
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    /* List container common styles */
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto; /* centers the container */
+      text-align: left; /* text inside ul left aligned */
+    }
+
+    li {
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 12px 20px;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    li a {
+      font-size: 18px;
+      font-weight: 500;
+      display: block;
+      user-select: none;
+      text-decoration: none;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      text-align: left;
+    }
+
+    a:active {
+      color: #004bbd;
+    }
+
+    /* Light mode styles */
+    .light-mode {
+      background: linear-gradient(to bottom, #e6e6e6 0%, #c0c0c0 100%);
+      color: #2c2c2c;
+    }
+
+    .light-mode h1 {
+      color: #2c2c2c;
+      text-shadow: 0 1px 0 #fff;
+      text-align: center;
+    }
+
+    .light-mode ul li {
+      background: linear-gradient(to bottom, #f9f9f9 0%, #dcdcdc 100%);
+      border: 1px solid #b6b6b6;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .light-mode ul li:hover {
+      background: linear-gradient(to bottom, #f1f7ff 0%, #a9c5ff 100%);
+      border-color: #7a98d1;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 1px 5px rgba(122,152,209,0.7);
+    }
+
+    .light-mode a {
+      color: #007aff;
+      text-shadow: 0 1px 0 #a0a0a0;
+    }
+
+    /* Dark mode styles */
+    .dark-mode {
+      background: #121212;
+      color: #eee;
+    }
+
+    .dark-mode h1 {
+      color: #eee;
+      text-shadow: none;
+      text-align: center;
+    }
+
+    .dark-mode ul li {
+      background: #1f1f1f;
+      border: 1px solid #444;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .dark-mode ul li:hover {
+      background: #333;
+      border-color: #6666cc;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.15),
+        0 1px 5px rgba(102,102,204,0.8);
+    }
+
+    .dark-mode a {
+      color: #6699ff;
+      text-shadow: none;
+    }
+  </style>
+</head>
+<body class="light-mode">
+
+  <h1>The DVD Archive</h1>
+
+  <div style="text-align:center; margin-bottom: 20px;">
+    <label for="darkModeToggle" style="font-weight: 500; font-size: 16px; user-select:none;">
+      🌙 Dark Mode
+    </label>
+    <input type="checkbox" id="darkModeToggle" />
+  </div>
+
+  <ul id="fileList"></ul>
+
+  <script>
+    // Your file list
+    const files = [
+      "example1.iso",
+      "example2.iso",
+      "movie_backup.img",
+    ];
+
+    const fileList = document.getElementById("fileList");
+
+    files.forEach(filename => {
+      const li = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = filename;
+      link.textContent = filename;
+      link.download = filename;
+      li.appendChild(link);
+      fileList.appendChild(li);
+    });
+
+    // Dark mode toggle logic
+    const toggle = document.getElementById("darkModeToggle");
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        document.body.classList.remove("light-mode");
+        document.body.classList.add("dark-mode");
+      } else {
+        document.body.classList.remove("dark-mode");
+        document.body.classList.add("light-mode");
+      }
+    });
+  </script>
+
+</body>
+</html>

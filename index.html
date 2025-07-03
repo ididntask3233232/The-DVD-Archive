@@ -133,21 +133,22 @@
   <ul id="fileList"></ul>
 
   <script>
-    // Your file list
+    // Files and their archive.org URLs
     const files = [
-      "Doom 3",
-      "I Spy Spooky Mansion",
-      "3D Pinball Space Cadet",
+      { name: "Doom 3", url: "https://archive.org/details/doom-3_202507" },
+      { name: "I Spy Spooky Mansion", url: "https://archive.org/details/ispy-spooky_202507" },
+      { name: "3D Pinball Space Cadet", url: "https://archive.org/details/pinball-xp" },
     ];
 
     const fileList = document.getElementById("fileList");
 
-    files.forEach(filename => {
+    files.forEach(file => {
       const li = document.createElement("li");
       const link = document.createElement("a");
-      link.href = filename;
-      link.textContent = filename;
-      link.download = filename;
+      link.href = file.url;
+      link.textContent = file.name;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
       li.appendChild(link);
       fileList.appendChild(li);
     });

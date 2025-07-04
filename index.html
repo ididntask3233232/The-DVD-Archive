@@ -3,64 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maintenance</title>
+  <title>The DVD Archive</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
+    html, body {
+      margin: 0; padding: 0; height: 100%;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background: linear-gradient(to bottom, #d6d6d6 0%, #b0b0b0 100%);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
+    /* Light and Dark Mode */
+    body.light-mode {
+      background: linear-gradient(to bottom, #e6e6e6 0%, #c0c0c0 100%);
+      color: #2c2c2c;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #eee;
+    }
+
+    /* Header and Toggle */
     h1 {
+      text-align: center;
+      font-weight: bold;
       font-size: 28px;
-      font-weight: bold;
-      text-shadow: 0 1px 0 #fff;
-      margin-bottom: 10px;
+      margin: 20px 0;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
-    p {
+    #modeToggleContainer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #modeLabel {
+      font-weight: 500;
       font-size: 16px;
-      color: #555;
-      text-shadow: 0 1px 0 #fff;
-      margin-bottom: 30px;
+      user-select: none;
+      margin-right: 8px;
+      color: inherit;
     }
 
-    a.button {
-      display: inline-block;
-      background: linear-gradient(to bottom, #fefefe 0%, #dcdcdc 100%);
-      border: 1px solid #aaa;
-      border-radius: 10px;
+    /* Button for Archive link */
+    #archiveButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #007aff;
+      background: linear-gradient(to bottom, #007aff, #005bbb);
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 500;
+      color: white;
       text-decoration: none;
-      box-shadow: inset 0 1px 0 #fff,
-                  0 2px 5px rgba(0, 0, 0, 0.2);
-      transition: background 0.2s ease;
+      text-align: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+      margin: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      opacity: 0; /* Initially hidden */
     }
 
-    a.button:hover {
-      background: linear-gradient(to bottom, #f1f1f1 0%, #cacaca 100%);
+    /* Light Mode Button Style */
+    body.light-mode #archiveButton {
+      background: linear-gradient(to bottom, #007aff, #005bbb);
+      opacity: 1; /* Show button in light mode */
     }
 
-    a.button:active {
-      background: linear-gradient(to bottom, #e0e0e0 0%, #b0b0b0 100%);
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    /* Dark Mode Button Style */
+    body.dark-mode #archiveButton {
+      background: linear-gradient(to bottom, #555, #444);
+      color: #ccc;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      opacity: 1; /* Show button in dark mode */
+    }
+
+    /* Hover effect for the button */
+    #archiveButton:hover {
+      background: linear-gradient(to bottom, #666, #555);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Active button effect */
+    #archiveButton:active {
+      background: linear-gradient(to bottom, #444, #333);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+      transform: translateY(0);
+    }
+
+    /* List and buttons */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 400px;
+      text-align: left;
+    }
+    li {
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    li a {
+      font-size: 18px;
+      font-weight: 500;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      user-select: none;
+    }
+    li a:active {
+      color: #004bbd;
+    }
+
+    /* Light mode styles */
+    body.light-mode li {
+      background: linear-gradient(to bottom, #f9f9f9 0%, #dcdcdc 100%);
+      border: 1px solid #b6b6b6;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8),
+                  0 1px 3px rgba(0,0,0,0.1);
+    }
+    body.light-mode li:hover {
+      background: linear-gradient(to bottom, #f1f7ff 0%, #a9c5ff 100%);
+      border-color: #7a98d1;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9),
+                  0 1px 5px rgba(122,152,209,0.7);
+    }
+    body.light-mode a {
+      color: #007aff;
+      text-shadow: 0 1px 0 #a0a0a0;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode li {
+      background: #1f1f1f;
+      border: 1px solid #444;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05),
+                  0 1px 3px rgba(0,0,0,0.5);
+    }
+    body.dark-mode li:hover {
+      background: #333;
+      border-color: #6666cc;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),
+                  0 1px 5px rgba(102,102,204,0.8);
+    }
+    body.dark-mode a {
+      color: #6699ff;
+      text-shadow: none;
     }
   </style>
 </head>
-<body>
-  <h1>🚧 Under Maintenance</h1>
-  <p>We're updating the site. Please check back soon.</p>
-  <a class="button" href="https://archive.org/details/@android_app_archive" target="_blank">📁 Visit Archive.org</a>
+<body class="light-mode">
+
+  <h1>The DVD Archive</h1>
+
+  <div id="modeToggleContainer">
+    <label id="modeLabel" for="darkModeToggle">🌙 Dark Mode</label>
+    <input type="checkbox" id="darkModeToggle" />
+  </div>
+
+  <!-- Archive button styled like the game buttons, placed top-left -->
+  <a href="https://archive.org/details/@android_app_archive" id="archiveButton" target="_blank" rel="noopener noreferrer">The DVD Archive</a>
+
+  <ul id="fileList">
+    <li><a href="https://archive.org/details/doom-3_202507" target="_blank" rel="noopener noreferrer">Doom 3</a></li>
+    <li><a href="https://archive.org/details/ispy-spooky_202507" target="_blank" rel="noopener noreferrer">I Spy Spooky Mansion</a></li>
+    <li><a href="https://archive.org/details/pinball-xp" target="_blank" rel="noopener noreferrer">3D Pinball Space Cadet</a></li>
+    <li><a href="https://archive.org/details/creator_202507" target="_blank" rel="noopener noreferrer">LEGO Creator</a></li>
+   <li><a href="https://archive.org/details/fun-pack-3-for-windows-wizard-works-1994" target="_blank" rel="noopener noreferrer">Fun Pack 3 For Windows</a></li>
+   <li><a href="https://archive.org/details/pvz-goty-en_202507">Plants VS Zombies Game of the Year</a></li>
+    <li><a href="#">Coming Soon 4</a></li>
+    <li><a href="#">Coming Soon 5</a></li>
+    <li><a href="#">Coming Soon 6</a></li>
+  </ul>
+
+  <script>
+    const toggle = document.getElementById("darkModeToggle");
+    const modeLabel = document.getElementById("modeLabel");
+    const body = document.body;
+
+    toggle.addEventListener("change", () => {
+      const isDark = toggle.checked;
+      body.classList.toggle("dark-mode", isDark);
+      body.classList.toggle("light-mode", !isDark);
+      modeLabel.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    });
+  </script>
+
 </body>
 </html>

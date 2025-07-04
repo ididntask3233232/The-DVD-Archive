@@ -155,6 +155,27 @@
       color: #6699ff;
       text-shadow: none;
     }
+
+    /* Responsive Design for Mobile */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      ul {
+        max-width: 90%;
+      }
+
+      /* Archive button should be at the top on small screens */
+      #archiveButton {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 20px auto;
+        width: 100%;
+        box-shadow: none;
+      }
+    }
   </style>
 </head>
 <body class="light-mode">

@@ -12,6 +12,8 @@
       scroll-behavior: smooth;
       transition: background 0.3s ease, color 0.3s ease;
     }
+
+    /* Light and Dark Mode */
     body.light-mode {
       background: linear-gradient(to bottom, #e6e6e6 0%, #c0c0c0 100%);
       color: #2c2c2c;
@@ -20,6 +22,8 @@
       background-color: #121212;
       color: #eee;
     }
+
+    /* Header and Toggle */
     h1 {
       text-align: center;
       font-weight: bold;
@@ -27,10 +31,12 @@
       margin: 20px 0;
       transition: color 0.3s ease, text-shadow 0.3s ease;
     }
+
     #modeToggleContainer {
       text-align: center;
       margin-bottom: 20px;
     }
+
     #modeLabel {
       font-weight: 500;
       font-size: 16px;
@@ -38,6 +44,55 @@
       margin-right: 8px;
       color: inherit;
     }
+
+    /* Button for Archive link */
+    #archiveButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px 20px;
+      background: linear-gradient(to bottom, #007aff, #005bbb);
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 500;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+      margin: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      opacity: 0; /* Initially hidden */
+    }
+
+    /* Light Mode Button Style */
+    body.light-mode #archiveButton {
+      background: linear-gradient(to bottom, #007aff, #005bbb);
+      opacity: 1; /* Show button in light mode */
+    }
+
+    /* Dark Mode Button Style */
+    body.dark-mode #archiveButton {
+      background: linear-gradient(to bottom, #555, #444);
+      color: #ccc;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      opacity: 1; /* Show button in dark mode */
+    }
+
+    /* Hover effect for the button */
+    #archiveButton:hover {
+      background: linear-gradient(to bottom, #666, #555);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Active button effect */
+    #archiveButton:active {
+      background: linear-gradient(to bottom, #444, #333);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+      transform: translateY(0);
+    }
+
+    /* List and buttons */
     ul {
       list-style: none;
       padding: 0;
@@ -110,6 +165,9 @@
     <label id="modeLabel" for="darkModeToggle">🌙 Dark Mode</label>
     <input type="checkbox" id="darkModeToggle" />
   </div>
+
+  <!-- Archive button styled like the game buttons, placed top-left -->
+  <a href="https://archive.org/details/@android_app_archive" id="archiveButton" target="_blank" rel="noopener noreferrer">The DVD Archive</a>
 
   <ul id="fileList">
     <li><a href="https://archive.org/details/doom-3_202507" target="_blank" rel="noopener noreferrer">Doom 3</a></li>
